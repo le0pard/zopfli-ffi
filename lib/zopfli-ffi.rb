@@ -1,0 +1,1 @@
+require "zopfli_ffi"
