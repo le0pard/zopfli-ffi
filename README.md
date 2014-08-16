@@ -1,4 +1,4 @@
-# Zopfli::Ffi
+# Zopfli-ffi
 
 Ruby wrapper for [Zopfli](https://code.google.com/p/zopfli/) library
 
