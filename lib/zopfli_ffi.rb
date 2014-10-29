@@ -9,4 +9,6 @@ module Zopfli
 end
 
 require "zopfli/c"
+require "zopfli/options"
+require "zopfli/zopfii"
 require "zopfli/version"

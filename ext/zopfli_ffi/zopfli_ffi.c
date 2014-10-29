@@ -95,14 +95,14 @@ int zopfli_convert(const char *in_file, const char *out_file, const ZopfliConfig
   } else {
     output_type = DEFAULT_FORMAT;
   }
-  
+
   if (zopfli_config->numiterations > 0) {
     options.numiterations = zopfli_config->numiterations
   }
 
   CompressFile(&options, output_type, in_file, out_file);
 
-  return 1;
+  return 0;
 }
 
 // test

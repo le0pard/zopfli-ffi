@@ -2,7 +2,7 @@ module Zopfli
   module C
     # struct
     class ZopfliConfig < FFI::Struct
-      layout  :type, :int, 
+      layout  :type, :int,
               :numiterations, :int
     end
 
