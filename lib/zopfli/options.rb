@@ -1,4 +1,6 @@
-module WebP
+require "zopfli/c"
+
+module Zopfli
   class Options
 
     attr_reader :type, :iterations

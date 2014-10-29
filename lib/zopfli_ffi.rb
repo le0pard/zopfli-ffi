@@ -8,7 +8,8 @@ module Zopfli
   end
 end
 
-require "zopfli/c"
 require "zopfli/options"
+require "zopfli/c"
+require "zopfli/libc" # not used right now
 require "zopfli/zopfii"
 require "zopfli/version"
