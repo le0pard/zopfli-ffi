@@ -35,6 +35,8 @@ Or install it yourself as:
 
 ## Usage
 
+Very simple usage example:
+
 ```ruby
 require 'zlib'
 require 'zopfli_ffi'
@@ -46,7 +48,23 @@ Zopfli.compress(uncompressed_file, compressed_file)
 
 uncompressed_data = File.read(uncompressed_file)
 uncompressed_zopfli_data = Zlib::Inflate.inflate File.read(compressed_file)
-uncompressed_zopfli_data == uncompressed_data
+uncompressed_zopfli_data == uncompressed_data # true
+```
+
+You can define format of compression (`:zlib` is default):
+
+```ruby
+Zopfli.compress(uncompressed_file, compressed_file, :zlib) # default format
+Zopfli.compress(uncompressed_file, compressed_file, :deflate)
+Zopfli.compress(uncompressed_file, compressed_file, :gzip)
+```
+
+Also you can define number of iterations for compression (greater number - better compression, but slower compression time; default = 15):
+
+```ruby
+Zopfli.compress(uncompressed_file, compressed_file, :zlib, 15) # default format
+Zopfli.compress(uncompressed_file, compressed_file, :deflate, 5)
+Zopfli.compress(uncompressed_file, compressed_file, :zlib, 25)
 ```
 
 ## Contributing

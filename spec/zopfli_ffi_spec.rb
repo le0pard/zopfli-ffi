@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'zlib'
+require 'benchmark'
 
 describe Zopfli do
   before :all do
@@ -16,4 +18,68 @@ describe Zopfli do
     expect(Zopfli::C.test_c(100)).to eq(200)
     expect(Zopfli::C.test_c(150)).to eq(250)
   end
+
+  describe 'check files compression' do
+    ['test0.txt', 'test1.txt', 'test2.svg'].each do |fixture|
+
+      it "#{fixture} in result must be the same" do
+        uncompressed_file = "spec/fixtures/#{fixture}"
+        compressed_file = "#{@out_dir}/#{fixture}.zfl"
+        # made compress
+        Zopfli.compress(uncompressed_file, compressed_file)
+
+        uncompressed_data, compressed_data = File.read(uncompressed_file), File.read(compressed_file)
+        # check
+        expect(Zlib::Inflate.inflate(compressed_data)).to eq(uncompressed_data)
+      end
+
+    end
+  end
+
+  describe 'check formats' do
+    [:deflate, :gzip, :zlib].each do |format|
+
+      it "#{format} in result must be the same" do
+        uncompressed_file = "spec/fixtures/test0.txt"
+        compressed_file = "#{@out_dir}/test0.txt.zfl"
+        # made compress
+        Zopfli.compress(uncompressed_file, compressed_file, format)
+
+        uncompressed_data, compressed_data = File.read(uncompressed_file), File.read(compressed_file)
+        # check
+        case format
+          when :deflate
+            # no matchers
+          when :gzip
+            gz = Zlib::GzipReader.new(StringIO.new(compressed_data))
+            expect(gz.read).to eq(uncompressed_data)
+          else
+            expect(Zlib::Inflate.inflate(compressed_data)).to eq(uncompressed_data)
+        end
+      end
+
+    end
+  end
+
+  describe 'check iterations' do
+    it "with more iterations must be slower" do
+      uncompressed_file = "spec/fixtures/test0.txt"
+      compressed_file = "#{@out_dir}/test0.txt.zfl"
+      # made compress
+      fast_time = Benchmark.realtime do
+        Zopfli.compress(uncompressed_file, compressed_file, :zlib, 1)
+      end
+      medium_time = Benchmark.realtime do
+        Zopfli.compress(uncompressed_file, compressed_file, :zlib, 10)
+      end
+      slow_time = Benchmark.realtime do
+        Zopfli.compress(uncompressed_file, compressed_file, :zlib, 20)
+      end
+
+      expect(fast_time).to be < medium_time
+      expect(medium_time).to be < slow_time
+    end
+  end
+
+
 end
