@@ -66,11 +66,11 @@ describe Zopfli do
       uncompressed_file = "spec/fixtures/test0.txt"
       compressed_file = "#{@out_dir}/test0.txt.zfl"
       # made compress
-      fast_time = Benchmark.realtime do
-        Zopfli.compress(uncompressed_file, compressed_file, :zlib, 1)
-      end
       slow_time = Benchmark.realtime do
         Zopfli.compress(uncompressed_file, compressed_file, :zlib, 20)
+      end
+      fast_time = Benchmark.realtime do
+        Zopfli.compress(uncompressed_file, compressed_file, :zlib, 5)
       end
 
       expect(fast_time).to be < slow_time
