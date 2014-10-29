@@ -73,7 +73,7 @@ describe Zopfli do
         Zopfli.compress(uncompressed_file, compressed_file, :zlib, 10)
       end
       slow_time = Benchmark.realtime do
-        Zopfli.compress(uncompressed_file, compressed_file, :zlib, 20)
+        Zopfli.compress(uncompressed_file, compressed_file, :zlib, 30)
       end
 
       expect(fast_time).to be < medium_time
