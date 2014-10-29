@@ -11,6 +11,7 @@ extern "C" {
 
   typedef struct {
     int type;           // type
+    int numiterations;  // number of iterations
   } ZopfliConfig;
 
 
