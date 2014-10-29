@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Zopfli-ffi by le0pard</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Zopfli-ffi</h1>
+        <p>Ruby wrapper for zopfli</p>
+
+        <p class="view"><a href="https://github.com/le0pard/zopfli-ffi">View the Project on GitHub <small>le0pard/zopfli-ffi</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/le0pard/zopfli-ffi/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/le0pard/zopfli-ffi/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/le0pard/zopfli-ffi">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="zopfli-ffi" class="anchor" href="#zopfli-ffi"><span class="octicon octicon-link"></span></a>Zopfli-ffi</h1>
+
+<p>Ruby wrapper for <a href="https://code.google.com/p/zopfli/">Zopfli</a> library. Zopfli Compression Algorithm is a new zlib (gzip, deflate) compatible compressor. This compressor takes more time (~100x slower), but compresses around 5% better than zlib and better than any other zlib-compatible compressor.</p>
+
+<h3>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p>First of all you should have install libraries: zopfli, zlib.</p>
+
+<p>For Ubuntu, Debian:</p>
+
+<pre><code>sudo apt-get install git build-essential zlib1g-dev
+</code></pre>
+
+<p>Next you should install zopfli:</p>
+
+<pre><code>git clone https://github.com/Hello71/zopfli.git
+cd zopfli
+make &amp;&amp; sudo make install
+</code></pre>
+
+<p>This gem is not support Windows and Mac OS systems (libzopfli isn't compiling on this systems).</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'zopfli-ffi'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install zopfli-ffi
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Very simple usage example:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s1">'zlib'</span>
+<span class="nb">require</span> <span class="s1">'zopfli_ffi'</span>
+
+<span class="n">uncompressed_file</span> <span class="o">=</span> <span class="s1">'spec/fixtures/test.txt'</span>
+<span class="n">compressed_file</span> <span class="o">=</span> <span class="s1">'spec/fixtures/test.txt.gz'</span>
+
+<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">)</span>
+
+<span class="n">uncompressed_data</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">)</span>
+<span class="n">uncompressed_zopfli_data</span> <span class="o">=</span> <span class="no">Zlib</span><span class="o">::</span><span class="no">Inflate</span><span class="o">.</span><span class="n">inflate</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">compressed_file</span><span class="p">)</span>
+<span class="n">uncompressed_zopfli_data</span> <span class="o">==</span> <span class="n">uncompressed_data</span> <span class="c1"># true</span>
+</pre></div>
+
+<p>You can define format of compression (<code>:zlib</code> is default):</p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:zlib</span><span class="p">)</span> <span class="c1"># default format</span>
+<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:deflate</span><span class="p">)</span>
+<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:gzip</span><span class="p">)</span>
+</pre></div>
+
+<p>Also you can define number of iterations for compression (greater number - better compression, but slower compression time; default = 15):</p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:zlib</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span> <span class="c1"># default format</span>
+<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:deflate</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:zlib</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ol>
+<li>Fork it ( <a href="http://github.com/le0pard/zopfli-ffi/fork">http://github.com/le0pard/zopfli-ffi/fork</a> )</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/le0pard">le0pard</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
