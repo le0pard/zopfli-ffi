@@ -9,5 +9,6 @@ module Zopfli
     attach_function :zopfli_convert, [:string, :string, :pointer], :int
 
     attach_function :test_c, [:int], :int
+
   end
 end

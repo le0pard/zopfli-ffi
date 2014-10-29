@@ -12,13 +12,13 @@ module Zopfli
     def compress_pointer
       options_pointer = FFI::MemoryPointer.new :char, C::ZopfliConfig.size, false
       options_struct = C::ZopfliConfig.new options_pointer
-
+      # set format
       options_struct[:type] = case type
         when :deflate then 1
         when :gzip then 2
         else 0
       end
-
+      # set numiterations
       options_struct[:numiterations] = iterations.to_i if iterations.to_i > 0
 
       options_pointer
