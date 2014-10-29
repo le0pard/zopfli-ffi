@@ -8,7 +8,7 @@ FFI::Compiler::CompileTask.new('zopfli_ffi') do |c|
   c.have_header?('zopfli.h', '/usr/local/include')
   c.have_func?('ZopfliInitOptions')
   c.have_func?('ZopfliCompress')
-  #c.have_library?('zopfli')
+  c.have_library?('zopfli')
   # compiler flags
   if c.platform.mac?
     c.cflags << "-arch x86_64"
