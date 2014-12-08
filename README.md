@@ -1,6 +1,7 @@
 # Zopfli-ffi
 
 [![Build Status](https://travis-ci.org/le0pard/zopfli-ffi.svg?branch=master)](https://travis-ci.org/le0pard/zopfli-ffi)
+[![Code Climate](https://codeclimate.com/github/le0pard/zopfli-ffi/badges/gpa.svg)](https://codeclimate.com/github/le0pard/zopfli-ffi)
 
 Ruby wrapper for [Zopfli](https://code.google.com/p/zopfli/) library. Zopfli Compression Algorithm is a new zlib (gzip, deflate) compatible compressor. This compressor takes more time (~100x slower), but compresses around 5% better than zlib and better than any other zlib-compatible compressor.
 
