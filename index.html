@@ -29,12 +29,14 @@
       </header>
       <section>
         <h1>
-<a name="zopfli-ffi" class="anchor" href="#zopfli-ffi"><span class="octicon octicon-link"></span></a>Zopfli-ffi</h1>
+<a id="zopfli-ffi" class="anchor" href="#zopfli-ffi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zopfli-ffi</h1>
+
+<p><a href="https://travis-ci.org/le0pard/zopfli-ffi"><img src="https://travis-ci.org/le0pard/zopfli-ffi.svg?branch=master" alt="Build Status"></a></p>
 
 <p>Ruby wrapper for <a href="https://code.google.com/p/zopfli/">Zopfli</a> library. Zopfli Compression Algorithm is a new zlib (gzip, deflate) compatible compressor. This compressor takes more time (~100x slower), but compresses around 5% better than zlib and better than any other zlib-compatible compressor.</p>
 
 <h3>
-<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
 
 <p>First of all you should have install libraries: zopfli, zlib.</p>
 
@@ -53,7 +55,7 @@ make &amp;&amp; sudo make install
 <p>This gem is not support Windows and Mac OS systems (libzopfli isn't compiling on this systems).</p>
 
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>Add this line to your application's Gemfile:</p>
 
@@ -71,39 +73,36 @@ make &amp;&amp; sudo make install
 </code></pre>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>Very simple usage example:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s1">'zlib'</span>
-<span class="nb">require</span> <span class="s1">'zopfli_ffi'</span>
+<div class="highlight highlight-ruby"><pre><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>zlib<span class="pl-pds">'</span></span>
+<span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>zopfli_ffi<span class="pl-pds">'</span></span>
 
-<span class="n">uncompressed_file</span> <span class="o">=</span> <span class="s1">'spec/fixtures/test.txt'</span>
-<span class="n">compressed_file</span> <span class="o">=</span> <span class="s1">'spec/fixtures/test.txt.gz'</span>
+uncompressed_file <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>spec/fixtures/test.txt<span class="pl-pds">'</span></span>
+compressed_file <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>spec/fixtures/test.txt.gz<span class="pl-pds">'</span></span>
 
-<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">)</span>
+<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file)
 
-<span class="n">uncompressed_data</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">)</span>
-<span class="n">uncompressed_zopfli_data</span> <span class="o">=</span> <span class="no">Zlib</span><span class="o">::</span><span class="no">Inflate</span><span class="o">.</span><span class="n">inflate</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">compressed_file</span><span class="p">)</span>
-<span class="n">uncompressed_zopfli_data</span> <span class="o">==</span> <span class="n">uncompressed_data</span> <span class="c1"># true</span>
-</pre></div>
+uncompressed_data <span class="pl-k">=</span> <span class="pl-s3">File</span>.read(uncompressed_file)
+uncompressed_zopfli_data <span class="pl-k">=</span> <span class="pl-s3">Zlib</span>::<span class="pl-s3">Inflate</span>.inflate <span class="pl-s3">File</span>.read(compressed_file)
+uncompressed_zopfli_data <span class="pl-k">==</span> uncompressed_data <span class="pl-c"># true</span></pre></div>
 
 <p>You can define format of compression (<code>:zlib</code> is default):</p>
 
-<div class="highlight highlight-ruby"><pre><span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:zlib</span><span class="p">)</span> <span class="c1"># default format</span>
-<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:deflate</span><span class="p">)</span>
-<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:gzip</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre><span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>) <span class="pl-c"># default format</span>
+<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:deflate</span>)
+<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:gzip</span>)</pre></div>
 
 <p>Also you can define number of iterations for compression (greater number - better compression, but slower compression time; default = 15):</p>
 
-<div class="highlight highlight-ruby"><pre><span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:zlib</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span> <span class="c1"># default format</span>
-<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:deflate</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="no">Zopfli</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">uncompressed_file</span><span class="p">,</span> <span class="n">compressed_file</span><span class="p">,</span> <span class="ss">:zlib</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-ruby"><pre><span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>, <span class="pl-c1">15</span>) <span class="pl-c"># default format</span>
+<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:deflate</span>, <span class="pl-c1">5</span>)
+<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>, <span class="pl-c1">25</span>)</pre></div>
 
 <h2>
-<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <ol>
 <li>Fork it ( <a href="http://github.com/le0pard/zopfli-ffi/fork">http://github.com/le0pard/zopfli-ffi/fork</a> )</li>
