@@ -17,7 +17,8 @@ Next you should install zopfli:
 
     git clone https://github.com/Hello71/zopfli.git
     cd zopfli
-    make && sudo make install
+    git submodule update --init
+    make -j2 && sudo make -j2 install
 
 
 This gem is not support Windows and Mac OS systems (libzopfli isn't compiling on this systems).
