@@ -6,7 +6,7 @@
     <title>Zopfli-ffi by le0pard</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -50,7 +50,8 @@
 
 <pre><code>git clone https://github.com/Hello71/zopfli.git
 cd zopfli
-make &amp;&amp; sudo make install
+git submodule update --init
+make -j2 &amp;&amp; sudo make -j2 install
 </code></pre>
 
 <p>This gem is not support Windows and Mac OS systems (libzopfli isn't compiling on this systems).</p>
@@ -78,29 +79,29 @@ make &amp;&amp; sudo make install
 
 <p>Very simple usage example:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>zlib<span class="pl-pds">'</span></span>
-<span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>zopfli_ffi<span class="pl-pds">'</span></span>
+<div class="highlight highlight-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>zlib<span class="pl-pds">'</span></span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>zopfli_ffi<span class="pl-pds">'</span></span>
 
-uncompressed_file <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>spec/fixtures/test.txt<span class="pl-pds">'</span></span>
-compressed_file <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>spec/fixtures/test.txt.gz<span class="pl-pds">'</span></span>
+uncompressed_file <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>spec/fixtures/test.txt<span class="pl-pds">'</span></span>
+compressed_file <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>spec/fixtures/test.txt.gz<span class="pl-pds">'</span></span>
 
-<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file)
+<span class="pl-c1">Zopfli</span>.compress(uncompressed_file, compressed_file)
 
-uncompressed_data <span class="pl-k">=</span> <span class="pl-s3">File</span>.read(uncompressed_file)
-uncompressed_zopfli_data <span class="pl-k">=</span> <span class="pl-s3">Zlib</span>::<span class="pl-s3">Inflate</span>.inflate <span class="pl-s3">File</span>.read(compressed_file)
+uncompressed_data <span class="pl-k">=</span> <span class="pl-c1">File</span>.read(uncompressed_file)
+uncompressed_zopfli_data <span class="pl-k">=</span> <span class="pl-c1">Zlib</span>::<span class="pl-c1">Inflate</span>.inflate <span class="pl-c1">File</span>.read(compressed_file)
 uncompressed_zopfli_data <span class="pl-k">==</span> uncompressed_data <span class="pl-c"># true</span></pre></div>
 
 <p>You can define format of compression (<code>:zlib</code> is default):</p>
 
-<div class="highlight highlight-ruby"><pre><span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>) <span class="pl-c"># default format</span>
-<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:deflate</span>)
-<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:gzip</span>)</pre></div>
+<div class="highlight highlight-ruby"><pre><span class="pl-c1">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>) <span class="pl-c"># default format</span>
+<span class="pl-c1">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:deflate</span>)
+<span class="pl-c1">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:gzip</span>)</pre></div>
 
 <p>Also you can define number of iterations for compression (greater number - better compression, but slower compression time; default = 15):</p>
 
-<div class="highlight highlight-ruby"><pre><span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>, <span class="pl-c1">15</span>) <span class="pl-c"># default format</span>
-<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:deflate</span>, <span class="pl-c1">5</span>)
-<span class="pl-s3">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>, <span class="pl-c1">25</span>)</pre></div>
+<div class="highlight highlight-ruby"><pre><span class="pl-c1">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>, <span class="pl-c1">15</span>) <span class="pl-c"># default format</span>
+<span class="pl-c1">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:deflate</span>, <span class="pl-c1">5</span>)
+<span class="pl-c1">Zopfli</span>.compress(uncompressed_file, compressed_file, <span class="pl-c1">:zlib</span>, <span class="pl-c1">25</span>)</pre></div>
 
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
