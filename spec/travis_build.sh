@@ -7,8 +7,8 @@ mkdir -p $HOME/opt/bin
 install -m755 zopfli zopflipng $HOME/opt/bin
 mkdir -p $HOME/opt/lib
 install -m755 libzopfli.so.1.0.1 $HOME/opt/lib
-cp -d libzopfli.so libzopfli.so.1.0.1 libzopfli.so.1 \
-      libzopflipng.so libzopflipng.so.1.0.0 libzopflipng.so.1 \
+cp -d libzopfli.so libzopfli.so.1.0.1 \
+      libzopflipng.so libzopflipng.so.1.0.0 \
       $HOME/opt/lib
 mkdir -p $HOME/opt/include/zopfli
 install -m644 src/zopfli/deflate.h src/zopfli/zlib_container.h \
