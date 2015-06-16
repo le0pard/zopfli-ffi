@@ -2,9 +2,9 @@ language: ruby
 
 before_install:
   - ./spec/travis_build.sh
-  - export LD_FLAGS=-L$HOME/opt/lib
-  - export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib:$HOME/opt/lib
-  - export CPATH=$CPATH:$HOME/opt/include
+  - export LD_FLAGS=-L$HOME/zopfli
+  - export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib:$HOME/zopfli
+  - export CPATH=$CPATH:$HOME/zopfli
 
 rvm:
   - 1.9.3
