@@ -1,4 +1,4 @@
 #/usr/bin/env sh
-git clone https://github.com/google/zopfli.git
+git clone https://github.com/Hello71/zopfli.git
 cd zopfli
-make && make libzopfli && make libzopflipng && make prefix=$HOME/opt install
+make && make prefix=$HOME/opt install
