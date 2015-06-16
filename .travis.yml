@@ -1,8 +1,10 @@
 language: ruby
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq zopfli
+  - ./spec/travis_build.sh > /dev/null 2>&1
+  - export LD_FLAGS=-L$HOME/opt/lib
+  - export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib:$HOME/opt/lib
+  - export CPATH=$CPATH:$HOME/opt/include
 
 rvm:
   - 1.9.3
@@ -15,7 +17,7 @@ rvm:
   - jruby-head
 
 cache: bundler
-sudo: true
+sudo: false
 
 notifications:
   email: false
