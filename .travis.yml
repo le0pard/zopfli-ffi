@@ -1,7 +1,7 @@
 language: ruby
 
 before_install:
-  - ./spec/travis_build.sh
+  - ./spec/travis_build.sh > /dev/null 2>&1
   - export LD_FLAGS=-L$HOME/opt/lib
   - export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib:$HOME/opt/lib
   - export CPATH=$CPATH:$HOME/opt/include
